@@ -145,7 +145,40 @@ app.post("/add-port", async (req, res) => {
   }
 });
 
+const Cargo=mongoose.model("Cargo", new mongoose.Schema(
+    {
+        cargoId: String,
+        cargoName: String,
+        cargoType: String,
+        weightKg: String,
+        quantity: String,
+        companyName: String,
+        originPort: String,
+        destinationPort: String,
+        containerNumber: String,
+        shippingDate: String,
+        deliveryStatus: String,
+        cargoValue: String
+
+    }
+))
+
+app.get("/view-cargo",async(req,res)=>{
+    const cargos=await Cargo.find()
+    res.json(cargos)
+})
+
+app.post("/add-cargo",async(req,res)=>{
+    await Cargo.create(req.body)
+    res.json({"status":"success"})
+})
+
+
+
+
+
 // Server
 app.listen(3000, () => {
   console.log("Server Started on Port 3000");
 });
+
